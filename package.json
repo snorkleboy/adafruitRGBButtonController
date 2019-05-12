@@ -1,0 +1,22 @@
+{
+  "name": "adafruitrgbbuttoncontroller",
+  "version": "1.0.0",
+  "description": "controller for ada fruit rugged rgb momentary push button",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snorkleboy/adafruitRGBButtonController.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snorkleboy/adafruitRGBButtonController/issues"
+  },
+  "homepage": "https://github.com/snorkleboy/adafruitRGBButtonController#readme",
+  "dependencies": {
+    "onoff": "^4.1.1"
+  }
+}
