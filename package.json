@@ -1,6 +1,6 @@
 {
   "name": "adafruitrgbbuttoncontroller",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "controller for ada fruit rugged rgb momentary push button",
   "main": "index.js",
   "scripts": {
