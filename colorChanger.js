@@ -3,9 +3,10 @@ const colorNames = {
     "blue": "BLUE",
     "green": "GREEN"
 }
-
+const pinColors={'red':'REDPIN','green':"GREENPIN",'blue':"BLUEPIN"}
 
 const setColor =(colorName,pins)=>{
+console.log("SETCOLOR",{colorName,pins});
     if(!Object.keys(colors).includes(colorName)){
         throw new Error(`unknown color ${JSON.stringify({colorName,colors})}`)
     }
@@ -21,24 +22,24 @@ const setColor =(colorName,pins)=>{
 
 const colors = {
     [colorNames.red]: {
-        red: 0,
-        blue: 1,
-        green: 1
+        [pinColors.red]: 0,
+        [pinColors.blue]: 1,
+        [pinColors.green]: 1
     },
     [colorNames.blue]: {
-        red: 1,
-        blue: 0,
-        green: 1
+        [pinColors.red]: 1,
+        [pinColors.blue]: 0,
+        [pinColors.green]: 1
     },
     [colorNames.green]: {
-        red: 1,
-        blue: 1,
-        green: 0
+        [pinColors.red]: 1,
+        [pinColors.blue]: 1,
+        [pinColors.green]: 0
     }
 }
 
 console.log("COLOR CHANGER",{colors,colorNames})
 
 module.exports = {
-    setColor, colorNames
+    setColor, colorNames,pinColors
 }

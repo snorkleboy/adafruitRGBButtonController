@@ -2,7 +2,7 @@ const Gpio = require('onoff').Gpio;
 const state = require("./state");
 const colorChanger = require("./colorChanger");
 const colors = colorChanger.colorNames;
-
+const pinColors = colorChanger.pinColors;
 let activeColorPins = {};
 let intervals = {};
 
@@ -14,7 +14,7 @@ function cleanUp(){
     })
 }
 const pinRegistration = (color,pin)=>({color,pin})
-const pinColors={'red':'REDPIN','green':"GREENPIN",'blue':"BLUEPIN"}
+
 pinRegistration.colors = pinColors;
 //pins 11,13,15
 const dColorPins = [
@@ -28,6 +28,7 @@ function setup({colorPins=dColorPins}={}){
     colorPins.forEach(pin=>{
         activeColorPins[pin.color] = new Gpio(pin.pin,'out');
     })
+
     state.init((state) => colorChanger.setColor(state.color,activeColorPins));
 }
 
@@ -50,7 +51,11 @@ function randomBlinker(){
 
     setTimeout(() => clearInterval(intervals[inName]),interval*times);
 }
-
+//
+setup();
+console.log(state.getState());
+state.setState({color:colors.red})
+//
 
 module.exports = {
     setup,
