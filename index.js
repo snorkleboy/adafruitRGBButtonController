@@ -1,19 +1,25 @@
-const Gpio = require('pigpio').Gpio;
+const Gpio = require('pigpio').Gpio; 
+// const Gpio = require('pigpio-mock').Gpio;
+
 const state = require("./state");
 const colorChanger = require("./colorChanger");
-const colors = colorChanger.colorNames;
+const colors = require("./colors");
 const pinColors = colorChanger.pinColors;
+
 let activeColorPins = {};
 let intervals = {};
 
 function cleanUp(){
     Object.values(intervals).forEach(i=>clearInterval(i));
     Object.values(activeColorPins).forEach(pin=>{
-        pin.writeSync(0);
-        pin.unexport();
+        if(pin.pwm__){
+            led.pwmWrite(0);
+        }else{
+            pin.digitalWrite(0);
+        }
     })
 }
-const pinRegistration = (color,pin)=>({color,pin})
+const pinRegistration = (color,pin,pwm=false)=>({color,pin,pwm})
 
 pinRegistration.colors = pinColors;
 //pins 11,13,15
@@ -26,7 +32,9 @@ const dColorPins = [
 
 function setup({colorPins=dColorPins}={}){
     colorPins.forEach(pin=>{
-        activeColorPins[pin.color] = new Gpio(pin.pin,{mode:Gpio.OUTPUT});
+        const activeatedPin = new Gpio(pin.pin,{mode:Gpio.OUTPUT});
+        activeatedPin.pwm__ = pin.pwm;
+        activeColorPins[pin.color] = activeatedPin;
     })
 
     state.init((state) => colorChanger.setColor(state.color,activeColorPins));
@@ -40,10 +48,10 @@ function randomBlinker(){
     intervals[inName] = (setInterval(() => {
         let vals = [random(), random(), random()];
         Object.entries(activeColorPins).forEach(([color, pin], i) => {
-            pin.writeSync(vals[i])
+            pin.digitalWrite(vals[i])
             console.log({
                 color,
-                cv: pin.readSync(),
+                cv: pin.digitalRead(),
                 nv: vals[i]
             })
         })
@@ -54,7 +62,12 @@ function randomBlinker(){
 //
 setup();
 console.log(state.getState());
-state.setState({color:colors.red})
+state.setState(colors.red)
+let exit = false;
+setTimeout(()=>{
+    cleanUp();
+},500)
+
 //
 
 module.exports = {

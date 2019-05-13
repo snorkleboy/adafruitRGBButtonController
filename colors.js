@@ -1,17 +1,22 @@
 module.exports = {
-    red: {color:{
-        r: 0,
-        b: 1,
-        g: 1
+    null:{color:{
+        r:0,
+        g:0,
+        b:0
     }},
-    blue: {color:{
+    red: {color:{
         r: 1,
         b: 0,
-        g: 1
+        g: 0
     }},
-    green: {color:{
-        r: 1,
+    blue: {color:{
+        r: 0,
         b: 1,
         g: 0
+    }},
+    green: {color:{
+        r: 0,
+        b: 0,
+        g: 1
     }}
 }
