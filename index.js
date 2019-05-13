@@ -1,4 +1,4 @@
-const Gpio = require('onoff').Gpio;
+const Gpio = require('pigpio').Gpio;
 const state = require("./state");
 const colorChanger = require("./colorChanger");
 const colors = colorChanger.colorNames;
@@ -26,7 +26,7 @@ const dColorPins = [
 
 function setup({colorPins=dColorPins}={}){
     colorPins.forEach(pin=>{
-        activeColorPins[pin.color] = new Gpio(pin.pin,'out');
+        activeColorPins[pin.color] = new Gpio(pin.pin,{mode:Gpio.OUTPUT});
     })
 
     state.init((state) => colorChanger.setColor(state.color,activeColorPins));

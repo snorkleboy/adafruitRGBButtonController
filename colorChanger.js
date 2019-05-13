@@ -16,7 +16,7 @@ console.log("SETCOLOR",{colorName,pins});
         if(!pin){
             throw new Error(`couldnt find corresponding pin ${{pinColorName,pins,colorName}}`, )
         }
-        pin.writeSync(value);
+        pin.digitalWrite(value);
     })
 }
 
@@ -38,7 +38,6 @@ const colors = {
     }
 }
 
-console.log("COLOR CHANGER",{colors,colorNames})
 
 module.exports = {
     setColor, colorNames,pinColors

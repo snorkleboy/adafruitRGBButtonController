@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/snorkleboy/adafruitRGBButtonController#readme",
   "dependencies": {
-    "onoff": "^4.1.1"
+    "pigpio": "^1.2.2"
   }
 }
