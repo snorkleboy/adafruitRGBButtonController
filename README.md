@@ -72,3 +72,29 @@ getState() returns the current state.
 setState({colors:{r:num,g:num,b:num}}) will change the color state of the button. if PWM the number should be between 0-255. For non PWM any number other than 0 is interpreted as a 1;
 
 colors is a hash of preset colors, can be called like setState(colors.red);
+
+### example
+
+```
+
+const controller = require("adafruitrgbbuttoncontroller")
+
+setup({colorPins:controller.defaultPWMPinRegistrations});
+let r = 0
+const i = setInterval(()=>{
+    r = r + 10;
+    r = r % 255;
+    controller.setState({
+        color: {
+            r,
+            g: 1,
+            b: 0
+        }
+    })
+},50)
+intervals["debug"] = i;
+
+setTimeout(()=>{
+    controller.cleanUp();
+},10000)
+```
