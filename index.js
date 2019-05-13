@@ -1,5 +1,5 @@
-// const Gpio = require('pigpio').Gpio; 
-const Gpio = require('pigpio-mock').Gpio;
+const Gpio = require('pigpio').Gpio; 
+// const Gpio = require('pigpio-mock').Gpio;
 
 const state = require("./state");
 const colorChanger = require("./colorChanger");
