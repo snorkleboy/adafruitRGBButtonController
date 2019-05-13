@@ -15,8 +15,11 @@ const setColor =(pinValues,pins)=>{
             throw new Error(`couldnt find corresponding pin -${JSON.stringify({pinColorName,pinValues,pins})}`, )
         }
         if(pin.pwm__){
+            console.log("PWM WRITE")
             pin.pwmWrite(pwmCommonAnodeConversion(value));
         }else{
+                        console.log("REGULAR WRITE",pin)
+
             pin.digitalWrite(Math.floor(commonAnodeConversion(value)));
         }
     })

@@ -13,7 +13,7 @@ function cleanUp(){
     Object.values(intervals).forEach(i=>clearInterval(i));
     Object.values(activeColorPins).forEach(pin=>{
         if(pin.pwm__){
-            led.pwmWrite(0);
+            pin.pwmWrite(0);
         }else{
             pin.digitalWrite(0);
         }
@@ -41,9 +41,15 @@ function setup({colorPins=defaultPinRegistrations}={}){
 }
 
 //
-setup([pinRegistration(pinColors.red, 17,true),
+
+const colorPins = [pinRegistration(pinColors.red, 18, true),
     pinRegistration(pinColors.blue, 27),
-    pinRegistration(pinColors.green, 22)]);
+    pinRegistration(pinColors.green, 22)
+];
+
+setup({
+    colorPins
+});
 let r = 0
 const i = setInterval(()=>{
     r = r + 10;
