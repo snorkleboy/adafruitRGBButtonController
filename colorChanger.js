@@ -8,27 +8,21 @@ const setColor =(pinValues,pins)=>{
     Object.entries(pinValues).forEach(([pinColorLetter,value])=>{
         const pinColorName = pinColors[pinColorLetter];
         const pin = pins[pinColorName];
-        console.log({
-            pinColorName, pinColorLetter, value
-        })
         if(!pin){
-            throw new Error(`couldnt find corresponding pin -${JSON.stringify({pinColorName,pinValues,pins})}`, )
+            throw new Error(`couldnt find corresponding pin -${JSON.stringify({pinColorName,pinValues,pins})}`)
         }
         if(pin.pwm__){
-            console.log("PWM WRITE")
             pin.pwmWrite(pwmCommonAnodeConversion(value));
         }else{
-                        console.log("REGULAR WRITE",pin)
-
-            pin.digitalWrite(Math.floor(commonAnodeConversion(value)));
+            pin.digitalWrite(commonAnodeConversion(value));
         }
     })
 }
 const pwmCommonAnodeConversion = (val)=>{
-    if(val > 255){
-        throw new Error("pwm values must be between 0-255, received " + val);
+    if(val > 255 || val < 0){
+        console.error("pwm values must be between 0-255, received " + val);
     }
-    return 255-val;
+    return 255 - val;
 }
 const commonAnodeConversion = (val)=>{
     if(val == 0){

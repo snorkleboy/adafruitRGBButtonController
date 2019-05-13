@@ -19,17 +19,6 @@ function cleanUp(){
         }
     })
 }
-const pinRegistration = (color,pin,pwm=false)=>({color,pin,pwm})
-
-pinRegistration.colors = pinColors;
-//pins 11,13,15
-const defaultPinRegistrations = [
-    pinRegistration(pinColors.red, 17),
-    pinRegistration(pinColors.blue, 27),
-    pinRegistration(pinColors.green, 22)
-];
-
-
 function setup({colorPins=defaultPinRegistrations}={}){
     colorPins.forEach(pin=>{
         const activeatedPin = new Gpio(pin.pin,{mode:Gpio.OUTPUT});
@@ -40,35 +29,25 @@ function setup({colorPins=defaultPinRegistrations}={}){
     state.init((state) => colorChanger.setColor(state.color,activeColorPins));
 }
 
-//
 
-const colorPins = [pinRegistration(pinColors.red, 18, true),
+const pinRegistration = (color, pin, pwm = false) => ({
+    color,
+    pin,
+    pwm
+})
+pinRegistration.colors = pinColors;
+//pins 11,13,15
+const defaultPinRegistrations = [
+    pinRegistration(pinColors.red, 17),
+    pinRegistration(pinColors.blue, 27),
+    pinRegistration(pinColors.green, 22)
+];
+const defaultPWMPinRegistrations = [
+    pinRegistration(pinColors.red, 18, true),
     pinRegistration(pinColors.blue, 27),
     pinRegistration(pinColors.green, 22)
 ];
 
-setup({
-    colorPins
-});
-let r = 0
-const i = setInterval(()=>{
-    r = r + 10;
-    r = r % 255;
-    state.setState({
-        color: {
-            r,
-            g: 1,
-            b: 0
-        }
-    })
-},50)
-intervals["debug"] = i;
-
-setTimeout(()=>{
-    cleanUp();
-},10000)
-
-//
 
 module.exports = {
     setup,
@@ -76,6 +55,7 @@ module.exports = {
     cleanUp,
     colors,
     defaultPinRegistrations,
+    defaultPWMPinRegistrations,
     getState:state.getState,
     setState:state.setState,
 }
